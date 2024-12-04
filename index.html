@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>与AI聊天</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 400px;
+            overflow-y: auto;
+        }
+        #user-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user-message {
+            color: blue;
+        }
+        .ai-message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>与AI聊天</h1>
+    <div id="chat-container"></div>
+    <input type="text" id="user-input" placeholder="输入消息..." />
+    
+    <script>
+        const apiUrl = "https://api.x.ai/v1/chat/completions";
+        const apiKey = "xai-8P0k86ayf0N9vZLGiUGHY6dwPOMnHYs1RmS1sUJxazo91bzEpG7A2QqJmQqT8y6Ut7pUONp43LDz3jbm"; // 替换为你的API密钥
+
+        // 初始消息
+        let messages = [
+            { role: "system", content: "你是一个有帮助的助手。" },
+            { role: "user", content: "你好，AI！" }
+        ];
+
+        // 发送消息并显示回复
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+
+            if (!userInput) return; // 不发送空消息
+
+            // 将用户的消息添加到聊天
+            messages.push({ role: "user", content: userInput });
+
+            // 清空输入框
+            document.getElementById('user-input').value = '';
+
+            // 显示用户的消息
+            appendMessage(`自己：${userInput}`, 'user-message');
+
+            try {
+                // 发送请求到API
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        messages: messages,
+                        model: "grok-beta",
+                        stream: false,
+                        temperature: 0
+                    })
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    const aiReply = responseData.choices[0].message.content;
+
+                    // 显示AI的回复
+                    appendMessage(`超级大脑：${aiReply}`, 'ai-message');
+                    messages.push({ role: "assistant", content: aiReply });
+                } else {
+                    console.error("错误:", response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error("请求失败:", error);
+            }
+        }
+
+        // 显示消息到聊天框
+        function appendMessage(message, roleClass) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', roleClass);
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+
+            // 滚动到聊天框的底部
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 监听用户输入
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
