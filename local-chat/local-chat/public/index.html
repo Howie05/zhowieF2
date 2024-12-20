@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local LAN Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        #chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-box {
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .user-msg, .other-msg {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 8px;
+        }
+        .user-msg {
+            background-color: #cce5ff;
+            text-align: right;
+        }
+        .other-msg {
+            background-color: #e9ecef;
+        }
+        #input-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        #send-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #send-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <h2>LAN Chat</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="input-box" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
+</div>
+
+<script>
+    const ws = new WebSocket('ws://localhost:3000');  // 连接到WebSocket服务器
+
+    // 监听消息
+    ws.onmessage = (event) => {
+        const message = event.data;
+        displayMessage(message, 'other');
+    };
+
+    // 发送消息
+    document.getElementById('send-btn').addEventListener('click', () => {
+        const message = document.getElementById('input-box').value;
+        if (message) {
+            displayMessage(message, 'user');
+            ws.send(message); // 发送消息到WebSocket服务器
+            document.getElementById('input-box').value = ''; // 清空输入框
+        }
+    });
+
+    // 按Enter键发送消息
+    document.getElementById('input-box').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            document.getElementById('send-btn').click();
+        }
+    });
+
+    // 显示消息
+    function displayMessage(message, sender) {
+        const chatBox = document.getElementById('chat-box');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add(sender === 'user' ? 'user-msg' : 'other-msg');
+        messageElement.textContent = message;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // 滚动到底部
+    }
+</script>
+
+</body>
+</html>
