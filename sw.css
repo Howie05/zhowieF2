@@ -1,0 +1,411 @@
+:root {
+    --neon-cyan: #00fff2;
+    --neon-purple: #b900ff;
+    --dark-space: #050718;
+    --tech-blue: #007fff;
+    --cyber-green: #00ff9d;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px var(--neon-cyan); }
+    50% { box-shadow: 0 0 20px var(--neon-cyan); }
+    100% { box-shadow: 0 0 5px var(--neon-cyan); }
+}
+
+@keyframes cyber-line {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--dark-space);
+    color: #fff;
+    line-height: 1.6;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(0, 255, 242, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(185, 0, 255, 0.1) 0%, transparent 50%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    animation: cyber-line 2s infinite;
+}
+
+header {
+    padding: 40px 0;
+    position: relative;
+}
+
+.logo {
+    font-size: 3.5em;
+    text-align: center;
+    margin: 20px 0;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(0, 255, 242, 0.3);
+}
+
+nav {
+    margin: 40px 0;
+    background: rgba(5, 7, 24, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 20px;
+    border: 1px solid rgba(0, 255, 242, 0.2);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+}
+
+nav a:hover::before {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+}
+
+nav a:hover {
+    color: var(--neon-cyan);
+    transform: translateY(-3px);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.tech-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 25px;
+    padding: 35px;
+    border: 1px solid rgba(0, 255, 242, 0.1);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 242, 0.05), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.8s ease;
+}
+
+.tech-card:hover::before {
+    transform: translateX(100%);
+}
+
+.tech-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 40px rgba(0, 255, 242, 0.15);
+    border-color: var(--neon-cyan);
+}
+
+.card-icon {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+}
+
+h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--neon-cyan);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+}
+
+.tech-stats {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--tech-blue));
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.holo-btn {
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 14px 28px;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-weight: bold;
+    margin-top: 25px;
+    position: relative;
+    overflow: hidden;
+    animation: pulse 2s infinite;
+}
+
+.holo-btn:hover {
+    background: var(--neon-cyan);
+    color: var(--dark-space);
+    box-shadow: 0 0 40px rgba(0, 255, 242, 0.4);
+    animation: none;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+footer p {
+    margin: 20px 0;
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 2.5em;
+        letter-spacing: 4px;
+    }
+    
+    nav ul {
+        gap: 20px;
+    }
+    
+    .content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Add these styles at the end of the file */
+
+.page-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+}
+
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 100px auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: var(--neon-cyan);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    box-shadow: 0 0 15px rgba(0, 255, 242, 0.5);
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px;
+    background-color: var(--dark-space);
+    border: 4px solid var(--neon-cyan);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(0, 255, 242, 0.5);
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -16px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 242, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.timeline-content h3 {
+    color: var(--neon-purple);
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .timeline::after {
+        left: 31px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    
+    .timeline-item::after {
+        left: 15px;
+    }
+    
+    .timeline-item:nth-child(even) {
+        left: 0%;
+    }
+}
+.biotech-applications, .biotech-challenges, .biotech-future {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 25px;
+    padding: 35px;
+    border: 1px solid rgba(0, 255, 242, 0.1);
+    margin-top: 40px;
+    transition: all 0.5s ease;
+}
+
+.biotech-applications:hover, .biotech-challenges:hover, .biotech-future:hover {
+    box-shadow: 0 15px 40px rgba(0, 255, 242, 0.15);
+    border-color: var(--neon-cyan);
+}
+
+.biotech-applications h3, .biotech-challenges h3, .biotech-future h3 {
+    color: var(--neon-purple);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.biotech-applications ul, .biotech-challenges ul, .biotech-future ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.biotech-applications li, .biotech-challenges li, .biotech-future li {
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 30px;
+}
+
+.biotech-applications li::before, .biotech-challenges li::before, .biotech-future li::before {
+    content: '•';
+    color: var(--neon-cyan);
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: -5px;
+}
+
+.biotech-applications strong {
+    color: var(--tech-blue);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.biotech-future p {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .biotech-applications, .biotech-challenges, .biotech-future {
+        padding: 25px;
+    }
+}
+

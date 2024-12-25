@@ -3,115 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>与AI聊天</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #chat-container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-            height: 400px;
-            overflow-y: auto;
-        }
-        #user-input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .message {
-            margin: 5px 0;
-        }
-        .user-message {
-            color: blue;
-        }
-        .ai-message {
-            color: green;
-        }
-    </style>
+    <title>Future</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>与AI聊天</h1>
-    <div id="chat-container"></div>
-    <input type="text" id="user-input" placeholder="输入消息..." />
-    
-    <script>
-        const apiUrl = "https://api.x.ai/v1/chat/completions";
-        const apiKey = "xai-8P0k86ayf0N9vZLGiUGHY6dwPOMnHYs1RmS1sUJxazo91bzEpG7A2QqJmQqT8y6Ut7pUONp43LDz3jbm"; // 替换为你的API密钥
-
-        // 初始消息
-        let messages = [
-            { role: "system", content: "你是一个有帮助的助手。" },
-            { role: "user", content: "你好，AI！" }
-        ];
-
-        // 发送消息并显示回复
-        async function sendMessage() {
-            const userInput = document.getElementById('user-input').value;
-
-            if (!userInput) return; // 不发送空消息
-
-            // 将用户的消息添加到聊天
-            messages.push({ role: "user", content: userInput });
-
-            // 清空输入框
-            document.getElementById('user-input').value = '';
-
-            // 显示用户的消息
-            appendMessage(`自己：${userInput}`, 'user-message');
-
-            try {
-                // 发送请求到API
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        messages: messages,
-                        model: "grok-beta",
-                        stream: false,
-                        temperature: 0
-                    })
-                });
-
-                if (response.ok) {
-                    const responseData = await response.json();
-                    const aiReply = responseData.choices[0].message.content;
-
-                    // 显示AI的回复
-                    appendMessage(`超级大脑：${aiReply}`, 'ai-message');
-                    messages.push({ role: "assistant", content: aiReply });
-                } else {
-                    console.error("错误:", response.status, response.statusText);
-                }
-            } catch (error) {
-                console.error("请求失败:", error);
-            }
-        }
-
-        // 显示消息到聊天框
-        function appendMessage(message, roleClass) {
-            const chatContainer = document.getElementById('chat-container');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', roleClass);
-            messageDiv.textContent = message;
-            chatContainer.appendChild(messageDiv);
-
-            // 滚动到聊天框的底部
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        // 监听用户输入
-        document.getElementById('user-input').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    </script>
+    <div class="container">
+        <header>
+            <div class="cyber-line"></div>
+            <h1 class="logo">FUTURE 未来科技 2050</h1>
+            <div class="cyber-line"></div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="or.html">未来概览</a></li>
+                <li><a href="ai.html">人工智能</a></li>
+                <li><a href="lz.html">量子计算</a></li>
+                <li><a href="sw.html">生物科技</a></li>
+                <li><a href="tk.html">太空探索</a></li>
+                <li><a href="login.html">登录</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <div class="tech-card" data-aos="fade-up">
+                <div class="card-icon">AI</div>
+                <h2>超级人工智能</h2>
+                <p>探索AGI的无限可能，认知计算突破人类极限。融合神经网络与量子算法，构建全新智能文明。</p>
+                <div class="tech-stats">
+                    <span>进展: 75%</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%"></div>
+                    </div>
+                </div>
+                <button class="holo-btn">探索前沿</button>
+            </div>
+            
+            <div class="tech-card" data-aos="fade-up">
+                <div class="card-icon">QC</div>
+                <h2>量子计算集群</h2>
+                <p>千万量子比特并行运算，打破经典计算极限。实现药物研发、气候模拟、材料设计的革命性突破。</p>
+                <div class="tech-stats">
+                    <span>进展: 60%</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 60%"></div>
+                    </div>
+                </div>
+                <button class="holo-btn">技术解析</button>
+            </div>
+            
+            <div class="tech-card" data-aos="fade-up">
+                <div class="card-icon">BT</div>
+                <h2>基因编程技术</h2>
+                <p>CRISPR 4.0精准基因编辑，攻克疑难疾病。定制化基因治疗方案，开启生命科技新纪元。</p>
+                <div class="tech-stats">
+                    <span>进展: 85%</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <button class="holo-btn">研究详情</button>
+            </div>
+            
+            <div class="tech-card" data-aos="fade-up">
+                <div class="card-icon">SP</div>
+                <h2>深空探测站</h2>
+                <p>火星地下城市建设进行时，太阳系际运输网络构建中。寻找适居星球，开启人类文明新篇章。</p>
+                <div class="tech-stats">
+                    <span>进展: 45%</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 45%"></div>
+                    </div>
+                </div>
+                <button class="holo-btn">探索宇宙</button>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="cyber-line"></div>
+            <p>© 2050 Future Tech Lab | 引领人类文明迈向星辰大海</p>
+            <div class="cyber-line"></div>
+        </footer>
+    </div>
 </body>
 </html>
